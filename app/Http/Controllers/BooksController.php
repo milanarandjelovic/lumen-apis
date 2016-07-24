@@ -50,6 +50,7 @@ class BooksController extends Controller
             'title'       => 'required|max:255',
             'description' => 'required',
             'author'      => 'required',
+            'author_id'   => 'required|exists:authors,id',
         ], [
             'description.required' => 'Please fill out the :attribute.'
         ]);
@@ -85,6 +86,7 @@ class BooksController extends Controller
             'title'       => 'required|max:255',
             'description' => 'required',
             'author'      => 'required',
+            'author_id'   => 'required|exists:authors,id'
         ], [
             'description.required' => 'Please fill out the :attribute.'
         ]);
