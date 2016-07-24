@@ -24,6 +24,10 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <!-- Testing Database -->
+        <env name="DB_DATABASE" value="bookr_testing"></env>
         <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
     </php>
 </phpunit>
