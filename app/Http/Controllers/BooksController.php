@@ -10,7 +10,7 @@ class BooksController extends Controller
 
     /**
      * Return all books.
-     * @return json
+     * @return array
      */
     public function index()
     {
@@ -19,9 +19,9 @@ class BooksController extends Controller
     }
 
     /**
-     * Return book by $id
-     * @param  int $id
-     * @return json
+     * Return book.
+     * @param  integer $id
+     * @return mixed
      */
     public function show($id)
     {
@@ -37,7 +37,7 @@ class BooksController extends Controller
     }
 
     /**
-     * Save book
+     * Save book.
      * @param  Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -47,6 +47,50 @@ class BooksController extends Controller
         return response()->json(['created' => true], 201, [
             'Location' => route('books.show', ['id' => $book->id])
         ]);
+    }
+
+    /**
+     * Update book.
+     * @param  Request $request
+     * @param  integer $id
+     * @return mixed
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => [
+                    'message' => 'Book not found'
+                ]
+            ], 404);
+        }
+
+        $book->fill($request->all());
+        $book->save();
+        return $book;
+    }
+
+    /**
+     * Delete book
+     * @param  integer $id
+     * @return \Illuminate\HttpJsonResponse
+     */
+    public function destroy($id)
+    {
+        try {
+            $book = Book::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => [
+                    'message' => 'Book not found'
+                ]
+            ], 404);
+        }
+        $book->delete();
+
+        return response(null, 204);
     }
 
 }
