@@ -45,8 +45,19 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate input request
+        $this->validate($request, [
+            'title'       => 'required|max:255',
+            'description' => 'required',
+            'author'      => 'required',
+        ], [
+            'description.required' => 'Please fill out the :attribute.'
+        ]);
+
         $book = Book::create($request->all());
-        return response()->json(['data' => $book->toArray()], 201, [
+        $data = $this->item($book, new BookTransformer());
+
+        return response()->json($data, 201, [
             'Location' => route('books.show', ['id' => $book->id])
         ]);
     }
@@ -69,9 +80,19 @@ class BooksController extends Controller
             ], 404);
         }
 
+        // Validate input request
+        $this->validate($request, [
+            'title'       => 'required|max:255',
+            'description' => 'required',
+            'author'      => 'required',
+        ], [
+            'description.required' => 'Please fill out the :attribute.'
+        ]);
+
         $book->fill($request->all());
         $book->save();
-        return ['data' => $book->toArray()];
+
+        return $this->item($book, new BookTransformer());
     }
 
     /**
