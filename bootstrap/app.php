@@ -82,6 +82,10 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+// Fractal
+$app->register(Spatie\Fractal\FractalLumenServiceProvider::class);
+$app->register(\App\Providers\FractalServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
