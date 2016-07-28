@@ -32,3 +32,9 @@ $factory->define(\App\Models\Bundle::class, function (Faker\Generator $faker) {
         'description' => $faker->text(),
     ];
 });
+
+$factory->define(\App\Models\Rating::class, function (Faker\Generator $faker) {
+    return [
+        'value' => rand(0, 5),
+    ];
+});

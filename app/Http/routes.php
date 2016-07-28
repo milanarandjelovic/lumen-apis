@@ -22,7 +22,7 @@ $app->group(['prefix' => '/author', 'namespace' => 'App\Http\Controllers'], func
 
 
 /* Bundles routes */
-$app->gorup(['prefix' => '/bundles', 'namespace' => 'App\Http\Controllers'], function (\Laravel\Lumen\Application $app) {
+$app->group(['prefix' => '/bundles', 'namespace' => 'App\Http\Controllers'], function (\Laravel\Lumen\Application $app) {
     $app->get('/{id:[\d]+}', ['as' => 'bundles.show', 'uses' => 'BundlesController@show']);
     $app->put('/{bundleId:[\d]+}/books/{bookId:[\d]+}', ['as' => 'bundles.addBook', 'uses' => 'BundlesController@addBook']);
     $app->delete('/{bundleId:[\d]+}/books/{bookId:[\d]+}', ['as' => 'bundles.delete', 'uses' => 'BundlesController@removeBook']);
