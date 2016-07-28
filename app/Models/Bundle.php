@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Bundle extends Model
 {
 
     /**
@@ -15,17 +16,11 @@ class Book extends Model
     protected $fillable = [
         'title',
         'description',
-        'author_id',
     ];
 
-    public function author()
+    public function books()
     {
-        return $this->belongsTo('App\Models\Author');
-    }
-
-    public function bundles()
-    {
-        return $this->belongsTo('App\Models\Bundle');
+        return $this->belongsTo('App\Models\Book');
     }
 
 }

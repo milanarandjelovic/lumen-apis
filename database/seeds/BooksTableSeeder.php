@@ -1,12 +1,10 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 
 class BooksTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *

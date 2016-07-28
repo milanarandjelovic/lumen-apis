@@ -11,7 +11,25 @@ class BooksController extends Controller
 {
 
     /**
+     * Validate book input.
+     *
+     * @param Request $request
+     */
+    public function validateBook(Request $request)
+    {
+        $this->validate($request, [
+            'title'       => 'required|max:255',
+            'description' => 'required',
+            'author'      => 'required',
+            'author_id'   => 'required|exists:authors,id',
+        ], [
+            'description.required' => 'Please fill out the :attribute.',
+        ]);
+    }
+
+    /**
      * Return all books.
+     *
      * @return array
      */
     public function index()
@@ -21,6 +39,7 @@ class BooksController extends Controller
 
     /**
      * Return book.
+     *
      * @param  integer $id
      * @return mixed
      */
@@ -40,31 +59,25 @@ class BooksController extends Controller
 
     /**
      * Save book.
+     *
      * @param  Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {
-        // Validate input request
-        $this->validate($request, [
-            'title'       => 'required|max:255',
-            'description' => 'required',
-            'author'      => 'required',
-            'author_id'   => 'required|exists:authors,id',
-        ], [
-            'description.required' => 'Please fill out the :attribute.'
-        ]);
+        $this->validateBook($request);
 
         $book = Book::create($request->all());
         $data = $this->item($book, new BookTransformer());
 
         return response()->json($data, 201, [
-            'Location' => route('books.show', ['id' => $book->id])
+            'Location' => route('books.show', ['id' => $book->id]),
         ]);
     }
 
     /**
      * Update book.
+     *
      * @param  Request $request
      * @param  integer $id
      * @return mixed
@@ -76,20 +89,12 @@ class BooksController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => [
-                    'message' => 'Book not found'
-                ]
+                    'message' => 'Book not found',
+                ],
             ], 404);
         }
 
-        // Validate input request
-        $this->validate($request, [
-            'title'       => 'required|max:255',
-            'description' => 'required',
-            'author'      => 'required',
-            'author_id'   => 'required|exists:authors,id'
-        ], [
-            'description.required' => 'Please fill out the :attribute.'
-        ]);
+        $this->validateBook($request);
 
         $book->fill($request->all());
         $book->save();
@@ -98,7 +103,8 @@ class BooksController extends Controller
     }
 
     /**
-     * Delete book
+     * Delete book.
+     *
      * @param  integer $id
      * @return \Illuminate\HttpJsonResponse
      */
@@ -109,8 +115,8 @@ class BooksController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => [
-                    'message' => 'Book not found'
-                ]
+                    'message' => 'Book not found',
+                ],
             ], 404);
         }
         $book->delete();

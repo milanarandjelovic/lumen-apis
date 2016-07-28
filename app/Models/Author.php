@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Author  extends Model
+class Author extends Model
 {
+
     /**
-     * The attributes that are mass assignable
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
     protected $fillable = [
@@ -18,7 +20,7 @@ class Author  extends Model
 
     public function books()
     {
-        return $this->hasMany(App\Models\Book::class);
+        return $this->hasMany('App\Models\Book');
     }
 
 }

@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class BookTransformer extends TransformerAbstract
 {
     /**
-     * Transform a Book model into array
+     * Transform a Book model into array.
      *
      * @param  Book   $book
      * @return array
