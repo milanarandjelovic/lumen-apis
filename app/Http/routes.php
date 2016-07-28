@@ -18,6 +18,9 @@ $app->group(['prefix' => '/author', 'namespace' => 'App\Http\Controllers'], func
     $app->get('/{id:[\d]+}', ['as' => 'author.show', 'uses' => 'AuthorController@show']);
     $app->put('/{id:[\d]+}', ['as' => 'author.update', 'uses' => 'AuthorController@update']);
     $app->delete('/{id:[\d]+}', ['as' => 'author.destroy', 'uses' => 'AuthorController@destroy']);
+    /* Author ratings routes */
+    $app->post('/{id:[\d]+}/ratings', ['as' => 'ratings.store', 'uses' => 'AuthorsRatingsController@store']);
+    $app->delete('/{id:[\d]+}/ratings', ['as' => 'ratings.destroy', 'uses' => 'AuthorsRatingsController@destroy']);
 });
 
 
